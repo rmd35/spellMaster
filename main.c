@@ -1,7 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+bool IsFound(char* filename, char* word){     //method to check if the word exists in the file
+    char line[100];
+    FILE* file= fopen(filename, "r");
+    if(file==NULL){
+        return false;
+    }
+    while(fgets(line, sizeof(line), file)){  //read the file line by line
+         if(strstr(line, word)!=NULL){       //find first occurrences of word in line
+             return true;
+         }
+    }
+    return false;
+}
 
+ bool sameLetter(char* oldWord, char* newWord){
+    if(strlen(oldWord)==0 || strlen(newWord)==0){
+        return false;
+}
+char lastChar= oldWord[strlen(oldWord)-1];
+char firstchar= newWord[0];
+if(firstchar==lastChar){
+    return true;
+}
+return false;
+}
 int main() {
     FILE *file;
     int wordCount;
