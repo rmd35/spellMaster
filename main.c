@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int main() {
     FILE *file;
     int wordCount;
     char fileName[] = "spells.txt";
+    displayEffect();
     file = fopen(fileName, "r"); //reading the file
 
     if (file == NULL) {
@@ -43,5 +45,41 @@ int main() {
     printf("Who dares to venture into this land!?");
     printf("Well, well. It seems you are no muggle after all!");
     
-    
+    int random = rand() % 2;   // toss the coin 
+ printf("The fates have conspired, the wands have been chosen, and now, it's time to decide who will cast the first spell...\n");
+    printf("\n %d",random);
+    if (random == 0) {
+        printf("By the powers of the Elder Wand, Player 1 shall commence this duel!\n");
+    } else {
+        printf("By the grace of Merlin's beard, Player 2 shall kick things off!\n");
+}
+}
+void displayEffect() {
+
+    printf("Welcome to Hogwarts School of Witchcraft and Wizardry!\n");
+    sleep(1);
+    printf("Tonight, the grand hall is filled with an air of anticipation...\n");
+    sleep(1);
+    printf("Students from all four houses have gathered.\n");
+    sleep(1);
+    printf("Even the paintings seem alert.\n");
+    sleep(2);
+    printf("The Grandmaster Dumbledore steps forward and announces:\n");
+    sleep(2);
+    printf("'Tonight, we shall witness a duel of spells!'\n");
+    sleep(2);
+    printf("Harry Potter takes his position...\n");
+    sleep(1);
+    printf("Wands out... \n");
+    sleep(1);
+    printf("3... \n");
+    sleep(1);
+    printf("2... \n");
+    sleep(1);
+    printf("1... \n");
+    sleep(1);
+    printf("DUEL!\n\n");
+    sleep(1);
+    printf("The Spell Master competition begins now!\n\n");
+    sleep(1);
 }
