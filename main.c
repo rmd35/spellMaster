@@ -3,6 +3,7 @@
 #include <string.h>
 int isFound(const char *word, const char *array[], int size) {
     for (int i = 0; i < size; i++) {
+        array[i]= tolower(array[i]);
         if (strcmp(word, array[i]) == 0) {
             // Word found in the array
             return 1;
