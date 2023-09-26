@@ -15,16 +15,16 @@ bool IsFound(char* filename, char* word){     //method to check if the word exis
     return false;
 }
 
- bool sameLetter(char* oldWord, char* newWord){
+ int sameLetter(char* oldWord, char* newWord){
     if(strlen(oldWord)==0 || strlen(newWord)==0){
-        return false;
+        return 0;
 }
 char lastChar= oldWord[strlen(oldWord)-1];
 char firstchar= newWord[0];
 if(firstchar==lastChar){
-    return true;
+    return 1;
 }
-return false;
+return 0;
 }
 int main() {
     FILE *file;
