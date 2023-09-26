@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int searchWordInArray(const char *word, const char *array[], int size) {
+int isFound(const char *word, const char *array[], int size) {
     for (int i = 0; i < size; i++) {
         if (strcmp(word, array[i]) == 0) {
             // Word found in the array
