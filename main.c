@@ -1,18 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-bool IsFound(char* filename, char* word){     //method to check if the word exists in the file
-    char line[100];
-    FILE* file= fopen(filename, "r");
-    if(file==NULL){
-        return false;
+int searchWordInArray(const char *word, const char *array[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (strcmp(word, array[i]) == 0) {
+            // Word found in the array
+            return 1;
+        }
     }
-    while(fgets(line, sizeof(line), file)){  //read the file line by line
-         if(strstr(line, word)!=NULL){       //find first occurrences of word in line
-             return true;
-         }
-    }
-    return false;
+    // Word not found in the array
+    return 0;
 }
 
  int sameLetter(char* oldWord, char* newWord){
