@@ -17,8 +17,8 @@ int isFound(const char *word, const char *array[], int size) {
     if(strlen(oldWord)==0 || strlen(newWord)==0){
         return 0;
 }
-char lastChar= oldWord[strlen(oldWord)-1];
-char firstchar= newWord[0];
+char lastChar= tolower(oldWord[strlen(oldWord)-1]);
+char firstchar= tolower(newWord[0]);
 if(firstchar==lastChar){
     return 1;
 }
