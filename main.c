@@ -82,4 +82,36 @@ void displayEffect() {
     sleep(1);
     printf("The Spell Master competition begins now!\n\n");
     sleep(1);
+    char previousSpell[100] = "";
+    char chosenSpell[100];
+
+    while (1) {
+        printf("%s, choose your spell: ", currentPlayer);
+        scanf("%s", chosenSpell);
+
+        if (!isFound(chosenSpell, words, wordCount)) {
+            printf("%s wins! The spell is not in the list.\n", nextPlayer);
+            break;
+        }
+
+        if (!sameLetter(previousSpell, chosenSpell) && strlen(previousSpell) != 0) {
+            printf("%s wins! Spell does not match the last letter of the previous spell.\n", nextPlayer);
+            break;
+        }
+
+        strcpy(previousSpell, chosenSpell);
+
+        char temp[50];
+        strcpy(temp, currentPlayer);
+        strcpy(currentPlayer, nextPlayer);
+        strcpy(nextPlayer, temp);
+    }
+
+    for (int i = 0; i < wordCount; i++) {
+        free(words[i]);
+    }
+    free(words);
+
+    return 0;
+}
 }
