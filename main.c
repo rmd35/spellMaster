@@ -145,7 +145,7 @@ int main() {
         else 
             Playing = player1;
         
-    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter());
+    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter(retaliate,chosenWords[turnCount - 1]));
     if (isFound(retaliate, words, wordCount) == 0)
         printf("%s casts a spell unknown! Such a wonky move! %s loses!", Playing, Playing);
     else if (isFound(retaliate, chosenWords, wordCount) == 0)
