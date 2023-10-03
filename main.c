@@ -129,18 +129,22 @@ int main() {
         displayStart(player2,player1);
         Playing = player2;
     }
+    char **ChosenWords = (char **)malloc(wordCount * sizeof(char *));
+    chosenWords[wordCount];
     int turnCount = 0;
     printf("What is your first move? \n");
     printWords(words, wordCount);
     char retaliate[80];
     do {
-        turnCount++;
-        if (strcmp(Playing, player1))
-                Playing = player2;
-        else 
-            Playing = player1;
         printf("What is your next move?\n");
         scanf("%s", &retaliate);
+        chosenWords[turnCount] = retaliate;
+        turnCount++;
+        if (strcmp(Playing, player1))
+            Playing = player2;
+        else 
+            Playing = player1;
+        
     } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter());
 
 }
