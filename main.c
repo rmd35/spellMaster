@@ -65,5 +65,5 @@ int main() {
     printf("Who dares to venture into this land!?");
     printf("Well, well. It seems you are no muggle after all!");
     
-    
+     char **ChoosenWords = (char **)malloc(wordCount * sizeof(char *));
 }
