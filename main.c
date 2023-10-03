@@ -35,7 +35,13 @@ void displayStart(char name1[], char name2[]) {
     printf("The Spell Master competition begins now! DUEL!\n\n");
     sleep(1);
 }
-
+int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
+    for (int i = 0; i < sizeOfArray; i++) {
+        if (c == words[i][0])
+            return 1;
+    }
+    return -1;
+}
 int isFound(const char *word, const char *array[], int size) {
     for (int i = 0; i < size; i++) {
         if (strcmp(word, array[i]) == 0) {
@@ -54,6 +60,13 @@ if(firstchar==lastChar){
     return 1;
 }
 return 0;
+}
+void printWords(char *words[], int sizeOfArray) {
+    for (int i = 0; i < sizeOfArray; i++) {
+        if(strcmp(words[i],"-1") == 0)
+        printf("%s",words[i]);
+    }
+
 }
 int main() {
     FILE *file;
@@ -113,5 +126,12 @@ int main() {
     }
     int turnCount = 1;
     printf("What is your first move? \n");
+    printWords(words, wordCount);
+    char retaliate[80];
+    do {
+
+        printf("What is your next move?\n");
+        scanf("%s", &retaliate);
+    } while (isFound || wordsStartingWithChar);
 
 }
