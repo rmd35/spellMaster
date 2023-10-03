@@ -145,13 +145,13 @@ int main() {
         else 
             Playing = player1;
         
-    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter(retaliate,chosenWords[turnCount - 1]));
+    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter(chosenWords[turnCount - 2], retaliate));
     if (isFound(retaliate, words, wordCount) == 0)
         printf("%s casts a spell unknown! Such a wonky move! %s loses!", Playing, Playing);
     else if (isFound(retaliate, chosenWords, wordCount) == 0)
         printf(
     else if (wordsStartingWithChar(words, retaliate[0], wordCount) == 0)
         printf("it seems the odds were against you, %s. The english lexicon has betrayed thee.", Playing);
-    else if (sameLetter(retaliate,chosenWords[turnCount - 1]) == 0)
+    else if (sameLetter(chosenWords[turnCount - 2], retaliate) == 0)
         printf("%s offend the laws of the duel! Read for Merlin and Morgana's sake!", Playing);
 }
