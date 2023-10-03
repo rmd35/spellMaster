@@ -118,7 +118,7 @@ int main() {
     printf("The fates have conspired, the wands have been chosen, and now, it's time to decide who will cast the first spell...\n");
     printf("let us toss a galleon and see what the laws of arithmancy pick!");
     printf("\n %d",random);
-    char startsPlaying[50];
+    char Playing[50];
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
         displayStart(player1,player2);
