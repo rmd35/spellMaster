@@ -128,7 +128,7 @@ int main() {
         displayStart(player2,player1);
         strcpy(char *Playing, char *player2);
     }
-    char **ChosenWords = (char **)malloc(wordCount * sizeof(char *));
+    char **chosenWords = (char **)malloc(wordCount * sizeof(char *));
     chosenWords[wordCount];
     int turnCount = 0;
     printf("What is your first move? \n");
