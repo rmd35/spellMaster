@@ -126,7 +126,7 @@ int main() {
     } else {
         printf("By the grace of Merlin's beard, %s shall kick things off!\n", player2); 
         displayStart(player2,player1);
-        strcpy(char *Playing, char *player2);;
+        strcpy(char *Playing, char *player2);
     }
     char **ChosenWords = (char **)malloc(wordCount * sizeof(char *));
     chosenWords[wordCount];
