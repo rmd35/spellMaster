@@ -122,12 +122,12 @@ int main() {
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
         displayStart(player1,player2);
-        startsPlaying = player1;
+        Playing = player1;
         
     } else {
         printf("By the grace of Merlin's beard, %s shall kick things off!\n", player2); 
         displayStart(player2,player1);
-        startsPlaying = player2;
+        Playing = player2;
     }
     int turnCount = 0;
     printf("What is your first move? \n");
@@ -135,6 +135,10 @@ int main() {
     char retaliate[80];
     do {
         turnCount++;
+        if (strcmp(Playing, player1))
+                Playing = player2;
+        else 
+            Playing = player1;
         printf("What is your next move?\n");
         scanf("%s", &retaliate);
     } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter());
