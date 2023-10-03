@@ -122,7 +122,7 @@ int main() {
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
         displayStart(player1,player2);
-    strcpy(char *Playing, char *player1);
+        strcpy(char *Playing, char *player1);
     } else {
         printf("By the grace of Merlin's beard, %s shall kick things off!\n", player2); 
         displayStart(player2,player1);
