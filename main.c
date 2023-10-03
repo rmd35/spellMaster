@@ -45,9 +45,10 @@ int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
 int isFound(const char *word, const char *array[], int size) {
     for (int i = 0; i < size; i++) {
         if (strcmp(word, array[i]) == 0) {
-            printf("Wizard 1 proceeds");
+            return 1;
         }
     }
+    return 0;
 }
 int sameLetter(char* oldWord, char* newWord){
     if(strlen(oldWord)==0 || strlen(newWord)==0){
@@ -117,21 +118,25 @@ int main() {
     printf("The fates have conspired, the wands have been chosen, and now, it's time to decide who will cast the first spell...\n");
     printf("let us toss a galleon and see what the laws of arithmancy pick!");
     printf("\n %d",random);
+    char startsPlaying[50];
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
         displayStart(player1,player2);
+        startsPlaying = player1;
+        
     } else {
         printf("By the grace of Merlin's beard, %s shall kick things off!\n", player2); 
         displayStart(player2,player1);
+        startsPlaying = player2;
     }
-    int turnCount = 1;
+    int turnCount = 0;
     printf("What is your first move? \n");
     printWords(words, wordCount);
     char retaliate[80];
     do {
-
+        turnCount++;
         printf("What is your next move?\n");
         scanf("%s", &retaliate);
-    } while (isFound || wordsStartingWithChar);
+    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter());
 
 }
