@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
+
 void displayEffect() {
     printf("Stop! Who dares to venture into this land!?\n");
     sleep(3);
-    printf("Well, well.\n"); 
+    printf("Well, well.\n");
     sleep(2);
     printf("It seems you are no muggle after all! In that case, allow the Marauders to present: \n");
     sleep(3);
@@ -22,7 +24,7 @@ void displayStart(char name1[], char name2[]) {
     sleep(3);
     printf("'Tonight, we shall witness a duel of spells!'\n\n");
     sleep(3);
-    printf("%s takes his position, ready to cast the first spell...\n\n", name1);
+    printf("%s takes position, ready to cast the first spell...\n\n", name1);
     sleep(3);
     printf("%s prepares to counter...\n\n", name2);
     printf("Wands out... \n\n");
@@ -41,7 +43,7 @@ int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
         if (c == words[i][0])
             return 1;
     }
-    return -1;
+    return 0;
 }
 int isFound(char word[], char *array[], int size) {
     for (int i = 0; i < size; i++) {
@@ -53,7 +55,7 @@ int isFound(char word[], char *array[], int size) {
 }
 int sameLetter(char* oldWord, char* newWord){
     if(strlen(oldWord)==0 || strlen(newWord)==0){
-        return 0;
+        return 1;
 } 
 char lastChar= oldWord[strlen(oldWord)-1];
 char firstchar= newWord[0];
@@ -118,10 +120,11 @@ int main() {
     char player2[50];
     scanf("%s", player1);
     scanf("%s", player2);
+    srand(time(NULL));
     int random = rand() % 2;   // toss the coin 
     printf("The fates have conspired, the wands have been chosen, and now, it's time to decide who will cast the first spell...\n");
     sleep(2);
-    printf("let us toss a galleon and see what the laws of arithmancy pick!");
+    printf("let us toss a galleon and see what the laws of arithmancy pick!\n");
     char Playing[50];
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
@@ -163,13 +166,19 @@ int main() {
         else 
             strcpy(Playing, player1);
         
-    } while (isFound(retaliate, words, wordCount) && wordsStartingWithChar(words, retaliate[0], wordCount) && (turnCount < 2 || sameLetter(chosenWords[turnCount - 2], retaliate)));
-    if (isFound(retaliate, words, wordCount) == 0)
-        printf("%s casts a spell unknown! Such a wonky move! %s loses!", Playing, Playing);
-    else if (isFound(retaliate, chosenWords, wordCount) == 0)
+    } while (isFound(retaliate, words, wordCount) && isFound(retaliate, chosenWords, wordCount) && wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) && (turnCount < 2 || sameLetter(chosenWords[turnCount - 2], retaliate)));
+    if (isFound(retaliate, chosenWords, wordCount) == 0)
         printf("Such lack of creativity! This spell has been used! %s loses!", Playing);
-    else if (wordsStartingWithChar(words, retaliate[0], wordCount) == 0)
+    else if (isFound(retaliate, words, wordCount) == 0)
+        printf("%s casts a spell unknown! Such a wonky move! %s loses!", Playing, Playing);
+    else if (wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) == 0) {
+        if (strcmp(Playing, player1))
+            strcpy(Playing, player2);
+        else
+            strcpy(Playing, player1);
         printf("it seems the odds were against you, %s. The english lexicon has betrayed thee.", Playing);
+    }
+        
     else if (sameLetter(chosenWords[turnCount - 2], retaliate) == 0)
         printf("%s offend the laws of the duel! Read for Merlin and Morgana's sake!", Playing);
     for (int i = 0; i < turnCount; i++) {
