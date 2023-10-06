@@ -123,11 +123,11 @@ int main() {
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n", player1);
         displayStart(player1,player2);
-        strcpy(Playing,player1);
+        strcpy(Playing, player1);
     } else {
         printf("By the grace of Merlin's beard, %s shall kick things off!\n", player2); 
         displayStart(player2,player1);
-        strcpy(Playing,player2);
+        strcpy(Playing, player2);
     }
     char **chosenWords = (char **)malloc(wordCount * sizeof(char *));
     chosenWords[wordCount];
@@ -141,15 +141,15 @@ int main() {
         chosenWords[turnCount] = retaliate;
         turnCount++;
         if (strcmp(Playing, player1))
-            Playing = player2;
+            strcpy(Playing, player2);
         else 
-            Playing = player1;
+            strcpy(Playing, player1);
         
-    } while (isFound(retaliate) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter(chosenWords[turnCount - 2], retaliate));
+    } while (isFound(retaliate, words, wordCount) && wordsStartingWithChar(words, retaliate[0], wordCount) && sameLetter(chosenWords[turnCount - 2], retaliate));
     if (isFound(retaliate, words, wordCount) == 0)
         printf("%s casts a spell unknown! Such a wonky move! %s loses!", Playing, Playing);
     else if (isFound(retaliate, chosenWords, wordCount) == 0)
-        printf(
+        printf("Such lack of creativity! This spell has been used! %s loses!", Playing);
     else if (wordsStartingWithChar(words, retaliate[0], wordCount) == 0)
         printf("it seems the odds were against you, %s. The english lexicon has betrayed thee.", Playing);
     else if (sameLetter(chosenWords[turnCount - 2], retaliate) == 0)
