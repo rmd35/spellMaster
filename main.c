@@ -64,9 +64,10 @@ return 0;
 }
 void printWords(char *words[], int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
-        if(strcmp(words[i],"-1") == 0)
-        printf("%s",words[i]);
-    }
+         printf("%-20s", words[i]);
+        if ((i + 1) % 5 == 0){
+            printf("\n");
+    }}
 
 }
 int main() {
