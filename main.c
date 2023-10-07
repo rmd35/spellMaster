@@ -166,7 +166,7 @@ int main() {
         else 
             strcpy(Playing, player1);
         
-    } while (isFound(retaliate, words, wordCount) && isFound(retaliate, chosenWords, wordCount) && wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) && (turnCount < 2 || sameLetter(chosenWords[turnCount - 2], retaliate)));
+    }while (isFound(retaliate, words, wordCount) && wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) && (turnCount < 2 || sameLetter(chosenWords[turnCount - 2], retaliate))&& !isFound(retaliate, chosenWords, turnCount - 1));
     if (isFound(retaliate, chosenWords, wordCount) == 0)
         printf("Such lack of creativity! This spell has been used! %s loses!", Playing);
     else if (isFound(retaliate, words, wordCount) == 0)
