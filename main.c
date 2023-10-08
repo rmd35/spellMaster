@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <ctype.h>
 
 void displayEffect() {
     printf("Stop! Who dares to venture into this land!?\n");
@@ -45,9 +46,18 @@ int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
     }
     return 0;
 }
+void toLowerCase(char word[]) {
+    for (int i = 0; word[i]; i++) {
+        word[i] = tolower(word[i]);
+    }
+}
 int isFound(char word[], char *array[], int size) {
+    char lowercaseWord[100]; 
+    strcpy(lowercaseWord, word);
+    toLowerCase(lowercaseWord);
+
     for (int i = 0; i < size; i++) {
-        if (strcmp(word, array[i]) == 0) {
+        if (strcmp(lowercaseWord, array[i]) == 0) {
             return 1;
         }
     }
@@ -108,12 +118,13 @@ int main() {
             free(words);
             return 0;
         }
+         toLowerCase(word); 
         words[i] = strdup(word);
         //allocates memory and copies the word into it
     }
 
     fclose(file); //now that we finished copying the words, we can close the file and use the array.
-    //displayEffect();
+    displayEffect();
     int whoseTurn;
     printf("Powerful wizards who ventured thus far, tell us what you are called! \n");
     char player1[50];
@@ -147,6 +158,7 @@ int main() {
     do {
         printf("What is your next move?\n");
         scanf("%s", retaliate);
+        toLowerCase(retaliate);
         chosenWords[turnCount] = (char *)malloc((strlen(retaliate) + 1) * sizeof(char));
     if (chosenWords[turnCount] == NULL) {
         printf("Memory allocation error for chosenWords[%d]\n", turnCount);
@@ -158,7 +170,7 @@ int main() {
         free(words);
         return 1;
     }
-     //strcpy(chosenWords[turnCount], retaliate);
+     strcpy(chosenWords[turnCount], retaliate);
        printf("%s casted this spell: %s\n", Playing, retaliate);
         chosenWords[turnCount] = strdup(retaliate);
         turnCount++;
