@@ -125,7 +125,12 @@ int main() {
         return 0;
     }
     // if we get past the if statement, then the memory allocation was successful
-
+    int alphabet = 26;
+    int lastLetterCounter [alphabet];
+    for (int i = 0; i < alphabet; i++) {
+        lastLetterCounter[i] = 0;
+    }
+    
     for (int i = 0; i < wordCount; i++) {
         char word[100];
         if (fscanf(file, "%s", word) != 1) {
@@ -137,6 +142,12 @@ int main() {
          toLowerCase(word); 
         words[i] = strdup(word);
         //allocates memory and copies the word into it
+        
+        int toGetIndex = 97;
+        int indexOfLetter = word[0] - toGetIndex;
+        lastLetterCounter[indexOfLetter]++;
+        //we increment the array of letter counters to find how many of each letter we've got.
+        
     }
     fclose(file); //now that we finished copying the words, we can close the file and use the array.
 
