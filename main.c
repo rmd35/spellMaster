@@ -148,9 +148,9 @@ int main() {
 
     printf("Powerful wizards who ventured thus far, tell us what you are called! \n");
     char player1[50];
-    char player2[50];
+    char player2[]= "Grindlewald";
     scanf("%s", player1);
-    scanf("%s", player2);
+    //scanf("%s", player2);
 
     srand(time(NULL));
     int random = rand() % 2;   // toss the coin 
