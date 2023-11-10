@@ -4,8 +4,44 @@
 #include <unistd.h>
 #include <time.h>
 #include <ctype.h>
+#include <limits.h>
 
 ///////////////functions///////////////
+struct wordNode {
+    char word[50];
+    struct wordNode* next;
+};
+void insert(char wordToInsert[], wordNode* array[]) {
+    int index = wordToInsert[0] - 'a';
+    wordNode* newNode = malloc(sizeof(struct wordNode));
+    strcpy(newNode->word, wordToInsert);
+    newNode->next = array[index];
+    array[index] = newNode;
+}
+char* botSpell(wordNode *head, int *count, const char level[]) {
+    int maximumcount = 0;
+    int minimumcount = INT_MAX; // Set to maximum possible value
+    char *wordChosen = NULL;
+    wordNode *currentLinkedList = head;
+    while(currentLinkedList != NULL){
+        char *word = currentLinkedList->word; // Assuming the Node has a data member that is a string
+        char lastLetter = tolower(word[strlen(word) - 1]); // Ensure lowercase
+        int frequency = count[lastLetter - 'a'];
+        if ( strcmp(level, "easy") == 0) {
+            if (frequency >= maximumcount) {
+                maximumcount = frequency;
+                wordChosen = strdup(word);
+            }
+        } else if ( strcmp(level, "hard") == 0){
+            if (frequency <= minimumcount) {
+                minimumcount = frequency;
+                wordChosen = strdup(word);
+            }
+        }
+        currentLinkedList = currentLinkedList->next;
+    }
+    return wordChosen;
+}
 
 //dialogue: introduction
 void displayEffect() {
@@ -123,8 +159,17 @@ int main() {
         printf("Your bookshelf is full of knick-knacks and rubbish, free up space!\n");
         fclose(file);
         return 0;
+    } // if we get past the if statement, then the memory allocation was successful
+    
+    int alphabet = 26;
+    int lastLetterCounter[alphabet];
+    for (int i = 0; i < alphabet; i++) {
+        lastLetterCounter[i] = 0;
     }
-    // if we get past the if statement, then the memory allocation was successful
+    wordNode* letteredwords[alphabet];
+    for (int i = 0; i < alphabet; i++) {
+        letteredwords[i] = NULL;
+    }
 
     for (int i = 0; i < wordCount; i++) {
         char word[100];
@@ -134,9 +179,11 @@ int main() {
             free(words);
             return 0;
         }
-         toLowerCase(word); 
-        words[i] = strdup(word);
-        //allocates memory and copies the word into it
+        toLowerCase(word); 
+        words[i] = strdup(word); //allocates memory and copies the word into it
+        int indexOfLetter = word[0] - 'a';
+        lastLetterCounter[indexOfLetter]++;//we increment the array of letter counters to find how many of each letter we've got.
+        insert(word, letteredwords); //array of linked lists, we add the word to it.
     }
     fclose(file); //now that we finished copying the words, we can close the file and use the array.
 
