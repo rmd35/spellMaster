@@ -45,13 +45,13 @@ char* botSpell(wordNode *head, int *count, const char level[]) {
             int frequency = count[lastLetter - 'a'];
 
             if ( strcmp(level, "easy") == 0) {
-                if (frequency > maximumcount) {
+                if (frequency >= maximumcount) {
                     maximumcount = frequency;
                     wordChosen = word;
                 }
             } else if ( strcmp(level, "hard") == 0)
             {
-                if (frequency < minimumcount) {
+                if (frequency <= minimumcount) {
                     minimumcount = frequency;
                     wordChosen = word;
                 }
