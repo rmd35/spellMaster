@@ -37,8 +37,7 @@ char* botSpell(Node **spells, int *count, char lastcharacter, char []level) {
     int maximumcount = 0;
     int minimumcount = INT_MAX; // Set to maximum possible value
     char *wordChosen = NULL;
-    Node *linkedList = spells[tolower(lastcharacter) - 'a'];
-    Node *current = linkedList;
+    Node *current = spells[tolower(lastcharacter) - 'a'];
         while(current != NULL){
             char *word = current->word; // Assuming the Node has a data member that is a string
             char lastLetter = tolower(word[strlen(word) - 1]); // Ensure lowercase
