@@ -1,6 +1,3 @@
-/*
-excerpt of main code, meant to create an array of linked lists, would a 2d array be better?
-*/
 typedef struct wordNode wordNode;
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,20 +17,20 @@ void printCharCount(int arr[], int size) {
 }
 //////// NEW ADDITION
 void insert(char wordToInsert[], wordNode* array[]) {
-    int index = wordToInsert[0] - 97;
+    int index = wordToInsert[0] - 'a';
     wordNode* newNode = malloc(sizeof(struct wordNode));
     strcpy(newNode->word, wordToInsert);
     newNode->next = array[index];
     array[index] = newNode;
 }
 
-void printLinkedList(wordNode* array[], int index) {
-    wordNode *current_node = array[index];
+void printLinkedList(wordNode* head) {
+    wordNode *current_node = head;
    	while ( current_node != NULL) {
-        printf("%d ", current_node->word);
+        printf("%s ", current_node->word);
         current_node = current_node->next;
     }
-
+    printf("\n");
 }
 //////////////////////////////
 int main() {
@@ -66,9 +63,9 @@ FILE *file;
     for (int i = 0; i < alphabet; i++) {
         lastLetterCounter[i] = 0;
     }
-    wordNode* words[alphabet];
+    wordNode* letteredwords[alphabet];
     for (int i = 0; i < alphabet; i++) {
-        words[i]  = malloc(sizeof(struct wordNode));
+        letteredwords[i] = NULL;
     }
 
     for (int i = 0; i < wordCount; i++) {
@@ -79,15 +76,33 @@ FILE *file;
             free(words);
             return 0;
         }
-        tolower(word); 
         words[i] = strdup(word);
         //allocates memory and copies the word into it
 
         int toGetIndex = 97;
         int indexOfLetter = word[0] - toGetIndex;
         lastLetterCounter[indexOfLetter]++;
+        insert(word, letteredwords);
         //we increment the array of letter counters to find how many of each letter we've got.
+        }
+        for (int i = 0; i < alphabet; i ++) {
+            printf("words starting with: %c: ", (i + 'a'));
+            printLinkedList(letteredwords[i]);
+        }
+        // Free memory
+for (int i = 0; i < alphabet; i++) {
+    wordNode* current_node = letteredwords[i];
+    while (current_node != NULL) {
+        wordNode* temp = current_node;
+        current_node = current_node->next;
+        free(temp);
+    }
+}
 
+    fclose(file); //now that we finished copying the words, we can close the file and use the array.
+    //printCharCount(lastLetterCounter, 26);
+   
+}
     }
     fclose(file); //now that we finished copying the words, we can close the file and use the array.
     //printCharCount(lastLetterCounter, 26);
