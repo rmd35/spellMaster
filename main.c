@@ -5,16 +5,13 @@ typedef struct wordNode wordNode;
 #include <unistd.h>
 #include <time.h>
 #include <ctype.h>
+#include <limits.h>
 
 struct wordNode {
     char word[50];
     struct wordNode* next;
 };
-void printCharCount(int arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%c = %d\n", (i + 97), arr[i]);
-    }
-}
+
 //////// NEW ADDITION
 void insert(char wordToInsert[], wordNode* array[]) {
     int index = wordToInsert[0] - 'a';
@@ -23,16 +20,8 @@ void insert(char wordToInsert[], wordNode* array[]) {
     newNode->next = array[index];
     array[index] = newNode;
 }
-
-void printLinkedList(wordNode* head) {
-    wordNode *current_node = head;
-   	while ( current_node != NULL) {
-        printf("%s ", current_node->word);
-        current_node = current_node->next;
-    }
-    printf("\n");
-}
 //////////////////////////////
+
 //min & max function
 char* botSpell(wordNode *head, int *count, const char level[]) {
     int maximumcount = 0;
@@ -47,13 +36,13 @@ char* botSpell(wordNode *head, int *count, const char level[]) {
             if ( strcmp(level, "easy") == 0) {
                 if (frequency >= maximumcount) {
                     maximumcount = frequency;
-                    wordChosen = word;
+                    wordChosen = strdup(word);
                 }
             } else if ( strcmp(level, "hard") == 0)
             {
                 if (frequency <= minimumcount) {
                     minimumcount = frequency;
-                    wordChosen = word;
+                    wordChosen = strdup(word);
                 }
             }
             currentLinkedList = currentLinkedList->next;
@@ -61,7 +50,8 @@ char* botSpell(wordNode *head, int *count, const char level[]) {
 
     return wordChosen;
 }
-/////////////////////
+//////////////////////////
+
 int main() {
 FILE *file;
     int wordCount;
@@ -105,21 +95,20 @@ FILE *file;
             free(words);
             return 0;
         }
-        words[i] = strdup(word);
-        //allocates memory and copies the word into it
-
-        int toGetIndex = 97;
-        int indexOfLetter = word[0] - toGetIndex;
+        words[i] = strdup(word); //allocates memory and copies the word into it
+        int indexOfLetter = word[0] - 'a';
         lastLetterCounter[indexOfLetter]++;
-        insert(word, letteredwords);
-        //we increment the array of letter counters to find how many of each letter we've got.
-        }
-        for (int i = 0; i < alphabet; i ++) {
-            printf("words starting with: %c: ", (i + 'a'));
-            printLinkedList(letteredwords[i]);
-        }
-        // Free memory
-for (int i = 0; i < alphabet; i++) {
+        insert(word, letteredwords); //we increment the array of letter counters to find how many of each letter we've got.
+    }
+
+    char* result = botSpell(letteredwords[15], lastLetterCounter, "hard");
+    if (result == NULL) {
+        printf("Error: Memory allocation failed for ourfinalWord\n");
+        return 1;  // Indicate an error
+    }
+    printf("%s\n", result); // Print the chosen word
+
+    for (int i = 0; i < alphabet; i++) { // Free memory
     wordNode* current_node = letteredwords[i];
     while (current_node != NULL) {
         wordNode* temp = current_node;
@@ -128,12 +117,6 @@ for (int i = 0; i < alphabet; i++) {
     }
 }
 
-    fclose(file); //now that we finished copying the words, we can close the file and use the array.
-    //printCharCount(lastLetterCounter, 26);
+    fclose(file);
    
-}
-    }
-    fclose(file); //now that we finished copying the words, we can close the file and use the array.
-    //printCharCount(lastLetterCounter, 26);
-    printLinkedList(words, 16);
 }
