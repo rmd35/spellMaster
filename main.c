@@ -34,7 +34,7 @@ void printLinkedList(wordNode* head) {
 }
 //////////////////////////////
 //min & max function
-char* botSpell(wordNode *head, int *count, char lastcharacter, char []level) {
+char* botSpell(wordNode *head, int *count, char lastcharacter, char level[]) {
     int maximumcount = 0;
     int minimumcount = INT_MAX; // Set to maximum possible value
     char *wordChosen = NULL;
