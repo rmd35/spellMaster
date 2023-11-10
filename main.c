@@ -33,7 +33,7 @@ void printLinkedList(wordNode* head) {
     printf("\n");
 }
 //min & max function
-char* botSpell(Node **spells, int *count, char lastcharacter, const char *level) {
+char* botSpell(Node **spells, int *count, char lastcharacter, char []level) {
     int maximumcount = 0;
     int minimumcount = INT_MAX; // Set to maximum possible value
     char *wordChosen = NULL;
