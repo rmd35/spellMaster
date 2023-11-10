@@ -34,11 +34,11 @@ void printLinkedList(wordNode* head) {
 }
 //////////////////////////////
 //min & max function
-char* botSpell(wordNode **spells, int *count, char lastcharacter, const char *level) {
+char* botSpell(wordNode *head, int *count, char lastcharacter, const char *level) {
     int maximumcount = 0;
     int minimumcount = INT_MAX; // Set to maximum possible value
     char *wordChosen = NULL;
-    wordNode *currentLinkedList = spells[tolower(lastcharacter) - 'a'];
+    wordNode *currentLinkedList = head;
         while(currentLinkedList != NULL){
             char *word = currentLinkedList->word; // Assuming the Node has a data member that is a string
             char lastLetter = tolower(word[strlen(word) - 1]); // Ensure lowercase
