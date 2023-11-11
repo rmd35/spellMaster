@@ -360,9 +360,9 @@ void printWords(char *words[], int sizeOfArray) {
      requires: a string containing the word to be inserted and array of pointers to Wordnode representing the head nodes of linked list for each character of the alphabet.
      effects:Inserts a new nodeto the  linked list corresponding to the first letter of the word.*/
 
-/*   char* botSpell(wordNode *head, int *count, const char level[])
+/*   char* botSpell(wordNode *head, int *count, const char level[], char *array[], int size) 
      requires: a pointer to the head of linked list, array of integers to represent the count of words starting with each 
-     letter of the alphabet and a string "level" representing the difficulty level(easy or hard)
+     letter of the alphabet , a string "level" representing the difficulty level(easy or hard),an array of strings that contains previously chosen words and the size of the array.
      effects: If the level is "easy", Bob picks the word with the maximum frequency from the list, making it easier for the player. 
               If the level is "hard", Bob selects the word with the minimum frequency, reducing the player's options and increasing the challenge.*/
 /*   displayEffect();
