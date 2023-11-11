@@ -15,7 +15,7 @@ typedef struct wordNode {
 /////////////// Function Declarations ///////////////
 
 void insert(char wordToInsert[], wordNode* array[]);
-char* botSpell(wordNode *head, int *count, const char level[]);
+char* botSpell(wordNode *head, int *count, const char level[], char *array[], int size);
 void displayEffect();
 void displayStart(char name1[], char name2[]);
 int wordsStartingWithChar(char *words[], char c, int sizeOfArray);
@@ -23,7 +23,7 @@ void toLowerCase(char word[]);
 int isFound(char word[], char *array[], int size);
 int sameLetter(char* oldWord, char* newWord);
 void printWords(char *words[], int sizeOfArray);
-void removeNode(wordNode** head, char word[]);
+int getLength(wordNode* head);
 
 ////////////////////////// MAIN /////////////////////////
 
@@ -148,11 +148,10 @@ int main() {
                 scanf("%s", retaliate);
             } else {
                 char lastLetter = retaliate[strlen(retaliate) - 1];
-                strcpy(retaliate, botSpell(letteredwords[lastLetter - 'a'], lastLetterCounter, level));
+                strcpy(retaliate, botSpell(letteredwords[lastLetter - 'a'], lastLetterCounter, level, chosenWords, turnCount));
             }
         }
         toLowerCase(retaliate);
-        removeNode(&letteredwords[retaliate[0] - 'a'], retaliate);
 
         if (chosenWords[turnCount] != NULL) {
             // Clean up memory and exit
@@ -223,33 +222,39 @@ void insert(char wordToInsert[], wordNode* array[]) {
 }
 
 // Function to suggest a spell based on frequency and difficulty level
-char* botSpell(wordNode *head, int *count, const char level[]) {
+char* botSpell(wordNode *head, int *count, const char level[], char *array[], int size) {
     int maximumcount = 0;
     int minimumcount = INT_MAX; // Set to maximum possible value
     char *wordChosen = NULL;
     wordNode *currentLinkedList = head;
+
     while (currentLinkedList != NULL) {
         char *word = currentLinkedList->word;
-        char lastLetter = tolower(word[strlen(word) - 1]);
-        int frequency = count[lastLetter - 'a'];
-        if (strcmp(level, "easy") == 0) {
-            if (frequency >= maximumcount) {
-                maximumcount = frequency;
-                free(wordChosen);
-                wordChosen = strdup(word);
-            }
-        } else if (strcmp(level, "hard") == 0) {
-            if (frequency <= minimumcount) {
-                minimumcount = frequency;
-                free(wordChosen);
-                wordChosen = strdup(word);
-                
+        
+        if(!isFound(word, array, size)) {
+            char lastLetter = tolower(word[strlen(word) - 1]);
+            int frequency = count[lastLetter - 'a'];
+            if (strcmp(level, "easy") == 0) {
+                if (frequency >= maximumcount) {
+                    maximumcount = frequency;
+                    free(wordChosen);
+                    wordChosen = strdup(word);
+                }
+            } else if (strcmp(level, "hard") == 0) {
+                if (frequency <= minimumcount) {
+                    minimumcount = frequency;
+                    free(wordChosen);
+                    wordChosen = strdup(word);
+                }
             }
         }
         currentLinkedList = currentLinkedList->next;
     }
-    char firstChar= wordChosen[0];
-    count[(firstChar)-'a']--;
+    if (wordChosen != NULL) {
+        char firstChar= wordChosen[0];
+        count[(firstChar)-'a']--;
+    }
+    
     return wordChosen;
 }
 
@@ -273,7 +278,7 @@ void displayEffect() {
     sleep(1);
     printf(". ");
     sleep(1);
-    printf(". \n");
+    printf(". \n\n");
     sleep(2);
     printf("BOOM!!! *screaming*\n\n");
     sleep(1);
@@ -357,26 +362,11 @@ void printWords(char *words[], int sizeOfArray) {
     }
     printf("\n\n");
 }
-void removeNode(wordNode** head, char word[]) {
-    wordNode* currentLinkedList = *head;
-    wordNode* prevNode = NULL;
-
-    if (currentLinkedList == NULL)
-        return;
-
-    if (strcmp(currentLinkedList->word, word) == 0) {
-        *head = currentLinkedList->next;
-        free(currentLinkedList);
-        return;
+int getLength(wordNode* head) {
+    int count = 0;
+    while (head != NULL) {
+        count++;
+        head = head->next;
     }
-
-    while (currentLinkedList != NULL && strcmp(currentLinkedList->word, word) != 0) {
-        prevNode = currentLinkedList;
-        currentLinkedList = currentLinkedList->next;
-    }
-
-    if (currentLinkedList != NULL) {
-        prevNode->next = currentLinkedList->next;
-        free(currentLinkedList);
-    }
+    return count;
 }
