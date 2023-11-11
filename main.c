@@ -356,3 +356,27 @@ void printWords(char *words[], int sizeOfArray) {
     }
     printf("\n\n");
 }
+/*Unit Testing */
+
+/*partitions insert(char wordToInsert[], wordNode* array[]) as follows:
+the list is empty, the list has elements inside of them */
+
+/* partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
+
+*/
+/* partitions void displayEffect() as follows: 
+*/
+/* partitions void displayStart(char name1[], char name2[]) as follows: 
+*/
+/* partitions int wordsStartingWithChar(char *words[], char c, int sizeOfArray) as follows: 
+*/
+/*partitions void toLowerCase(char word[]) as follows: 
+*/
+/*int isFound(char word[], char *array[], int size) as follows: 
+*/
+/*int sameLetter(char* oldWord, char* newWord) as follows: 
+*/
+/*void printWords(char *words[], int sizeOfArray) as follows: 
+
+*/
+
