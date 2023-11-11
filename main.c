@@ -23,6 +23,7 @@ void toLowerCase(char word[]);
 int isFound(char word[], char *array[], int size);
 int sameLetter(char* oldWord, char* newWord);
 void printWords(char *words[], int sizeOfArray);
+void removeNode(wordNode** head, char word[]);
 
 ////////////////////////// MAIN /////////////////////////
 
@@ -151,6 +152,7 @@ int main() {
             }
         }
         toLowerCase(retaliate);
+        removeNode(&letteredwords[retaliate[0] - 'a'], retaliate);
 
         if (chosenWords[turnCount] != NULL) {
             // Clean up memory and exit
@@ -165,7 +167,6 @@ int main() {
             printf("mafi mahal\n");
             break;
         }
-
         printf("%s casted this spell: %s\n", Playing, retaliate);
         chosenWords[turnCount] = strdup(retaliate);
         turnCount++;
@@ -355,4 +356,27 @@ void printWords(char *words[], int sizeOfArray) {
         }
     }
     printf("\n\n");
+}
+void removeNode(wordNode** head, char word[]) {
+    wordNode* currentLinkedList = *head;
+    wordNode* prevNode = NULL;
+
+    if (currentLinkedList == NULL)
+        return;
+
+    if (strcmp(currentLinkedList->word, word) == 0) {
+        *head = currentLinkedList->next;
+        free(currentLinkedList);
+        return;
+    }
+
+    while (currentLinkedList != NULL && strcmp(currentLinkedList->word, word) != 0) {
+        prevNode = currentLinkedList;
+        currentLinkedList = currentLinkedList->next;
+    }
+
+    if (currentLinkedList != NULL) {
+        prevNode->next = currentLinkedList->next;
+        free(currentLinkedList);
+    }
 }
