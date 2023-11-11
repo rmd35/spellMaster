@@ -363,8 +363,8 @@ void printWords(char *words[], int sizeOfArray) {
 /*   char* botSpell(wordNode *head, int *count, const char level[])
      requires: a pointer to the head of linked list, array of integers to represent the count of words starting with each 
      letter of the alphabet and a string "level" representing the difficulty level(easy or hard)
-     effects: chooses a word from the linked list based on frequency and level if the level is easy, the function  chooses the word with maximum frequency. If "hard" it  chooses the word with minimum frequency to limit the options of the player.*/
-
+     effects: If the level is "easy", Bob picks the word with the maximum frequency from the list, making it easier for the player. 
+              If the level is "hard", Bob selects the word with the minimum frequency, reducing the player's options and increasing the challenge.*/
 /*   displayEffect();
      requires: nothing 
      effects:print an introductory dialogue with delays between lines.*/
