@@ -362,7 +362,6 @@ void printWords(char *words[], int sizeOfArray) {
 the list is empty, the list has elements inside of them */
 
 /* partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
-
 */
 /* partitions void displayEffect() as follows: 
 */
