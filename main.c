@@ -384,9 +384,9 @@ and it has the highest frequency.
 */
 
 /*int sameLetter(char* oldWord, char* newWord) as follows: 
-oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord), oldWord[strlen(oldWord)-1] != newWord[0]*/
+returns 1 if oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord) and zero if oldWord[strlen(oldWord)-1] != newWord[0]*/
 
 /*void printWords(char *words[], int sizeOfArray) as follows: 
-the list is empty, the list has elements inside of them 
+prints nothing if the list is empty, and prints the elements if the list has elements inside of it
 */
 
