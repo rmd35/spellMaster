@@ -374,8 +374,8 @@ the list is empty, the list has elements inside of them */
 /*int isFound(char word[], char *array[], int size) as follows: 
 */
 /*int sameLetter(char* oldWord, char* newWord) as follows: 
-*/
+oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord), oldWord[strlen(oldWord)-1] != newWord[0]
 /*void printWords(char *words[], int sizeOfArray) as follows: 
-
+the list is empty, the list has elements inside of them 
 */
 
