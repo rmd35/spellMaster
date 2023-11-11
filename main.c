@@ -1,3 +1,11 @@
+///////////////////// SPELLMASTER PHASE 2 /////////////////////
+
+///////////////////// THE MARAUDERS GROUP /////////////////////
+
+///// ROLA DINNAWI, JULIA DIRAWI, MONA JAMAL //////////////////
+
+///////////////////// headers /////////////////////////////////
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,16 +14,16 @@
 #include <ctype.h>
 #include <limits.h>
 
-// Define the structure for a linked list node
+// structure node for the linked list
 typedef struct wordNode {
     char word[50];
     struct wordNode* next;
 } wordNode;
 
-/////////////// Function Declarations ///////////////
+/////////////// function declarations /////////////////////
 
 void insert(char wordToInsert[], wordNode* array[]);
-char* botSpell(wordNode *head, int *count, const char level[]);
+char* botSpell(wordNode *head, int *count, const char level[], char *array[], int size);
 void displayEffect();
 void displayStart(char name1[], char name2[]);
 int wordsStartingWithChar(char *words[], char c, int sizeOfArray);
@@ -24,86 +32,103 @@ int isFound(char word[], char *array[], int size);
 int sameLetter(char* oldWord, char* newWord);
 void printWords(char *words[], int sizeOfArray);
 
+
 ////////////////////////// MAIN /////////////////////////
 
 int main() {
+
+    ///////////////////// FILE READING //////////////////
+
     FILE *file;
     int wordCount;
     char fileName[] = "spells.txt";
-    file = fopen(fileName, "r"); // Reading the file
+    file = fopen(fileName, "r"); // reading the file
 
-    // Check if the file is empty
+    // checking if the file is empty
     if (file == NULL) {
         printf("Strange, your spellbook is missing! \n");
         return 0;
     }
 
-    // Read the number of words from the file
+    // reads the number of words from the file
     if (fscanf(file, "%d", &wordCount) != 1) {
-        printf("Invalid file format. Unable to read word count.\n");
+        printf("How many spells are in this book!? The index is missing! \n");
         fclose(file);
         return 0;
     }
 
-    // Allocate memory for storing words
-    char **words = (char **)malloc(wordCount * sizeof(char *));
-    if (words == NULL) {
-        printf("Memory allocation error for words array.\n");
+    // allocate memory and store words in words
+    char **spells = (char **)malloc(wordCount * sizeof(char *));
+    if (spells == NULL) {
+        printf("Your shelf is filled with trinkets and\n");
         fclose(file);
         return 0;
     }
 
-    // Initialize variables for letter frequencies and linked lists
+    // initialize array that has counters for each starting letter
     int alphabet = 26;
     int lastLetterCounter[alphabet];
     for (int i = 0; i < alphabet; i++) {
         lastLetterCounter[i] = 0;
     }
+
+    // initialize array of linked lists for each letter
     wordNode* letteredwords[alphabet];
     for (int i = 0; i < alphabet; i++) {
         letteredwords[i] = NULL;
     }
 
-    // Read words from the file and populate arrays
+    // read words from file and fill the arrays
     for (int i = 0; i < wordCount; i++) {
         char word[100];
         if (fscanf(file, "%s", word) != 1) {
-            printf("Error reading word from the file.\n");
+            printf("I cannot read this! It is gibberish!\n");
             fclose(file);
-            free(words);
+            free(spells);
             return 0;
         }
+
         toLowerCase(word);
-        words[i] = strdup(word);
+        spells[i] = strdup(word);
+
+        // in addition to storing in an array, increment the letter counter, and insert the word in the correct linked list
         int indexOfLetter = word[0] - 'a';
         lastLetterCounter[indexOfLetter]++;
         insert(word, letteredwords);
     }
-    fclose(file); // Close the file after reading
+    fclose(file); // close the file after reading
 
-    ///////////////////// BEGIN THE GAME /////////////////////
+///////////////////// FILE READING DONE //////////////////
 
+
+///////////////////// BEGIN THE GAME /////////////////////
+
+    // dialogue
     displayEffect();
 
+    // names of players and level
     char player1[50];
-    char player2[] = "Grindlewald";
+    char player2[] = "Grindlewald"; // villain!
     char level[10];
 
+    // takes name from the user, and difficulty they want to play
     printf("Enter your wizard name: ");
     scanf("%s", player1);
-
+    printf("\n\n");
     printf("How difficult would you like the game to be? (easy/hard): ");
     scanf("%s", level);
 
     srand(time(NULL));
-    int random = rand() % 2; // Toss the coin
+    int random = rand() % 2; // toss the galleon
 
     printf("The fates have conspired, the wands have been chosen, and now, it's time to decide who will cast the first spell...\n\n");
     sleep(2);
-    printf("Let us toss a galleon and see who the laws of arithmancy favor!\n\n");
+    printf("Let us toss a galleon and see whom the laws of arithmancy favor!\n\n");
     sleep(2);
 
-    char Playing[50]; // Contains the name of whoever is playing
+    char Playing[50]; // contains the name of whoever is currently playing
+
+    // sets Playing to the starting player based on the random result
     if (random == 0) {
         printf("By the powers of the Elder Wand, %s shall commence this duel!\n\n", player1);
         sleep(2);
@@ -116,66 +141,64 @@ int main() {
         strcpy(Playing, player2);
     }
 
-    // Create an array that stores the words chosen
-    char **chosenWords = (char **)malloc(wordCount * sizeof(char *));
-    if (chosenWords == NULL) {
-        printf("Memory allocation error for chosenWords\n");
+    // create an array that stores the words chosen
+    char **usedSpells = (char **)malloc(wordCount * sizeof(char *));
+    if (usedSpells == NULL) {
+        printf("Where do I write all these spells I casted?\n");
         for (int i = 0; i < wordCount; i++) {
-            free(chosenWords[i]);
+            free(usedSpells[i]);
         }
-        free(chosenWords); // In case the array is full, clean up previous memory allocation
+        free(usedSpells); // cleans up previous memory allocation
         return 1;
     }
     for (int i = 0; i < wordCount; i++) {
-        chosenWords[i] = NULL;
+        usedSpells[i] = NULL;
     }
 
-    int turnCount = 0;
-    printWords(words, wordCount);
+    int turnCount = 0; // keeps track of count and where in usedSpells we will add the spell
+    printWords(spells, wordCount);
     char retaliate[80];
 
-    // Do-while loop to keep the game running until someone loses
+    // do-while loop, keeps the game running until someone loses
     do {
         printf("What is your next move?\n");
-        if (random != 0) {
-           
+        if (random != 0) { // in case bot was chosen to start, it will choose a word at random
             int randomIndex = rand() % wordCount;
-            strcpy(retaliate, words[randomIndex]);
-            random = 0;
+            strcpy(retaliate, spells[randomIndex]);
+            random = 0; // ensures we will not enter this if-statement anymore
         } else {
             if (strcmp(Playing, player1) == 0) {
                 scanf("%s", retaliate);
             } else {
                 char lastLetter = retaliate[strlen(retaliate) - 1];
-                strcpy(retaliate, botSpell(letteredwords[lastLetter - 'a'], lastLetterCounter, level));
+                strcpy(retaliate, botSpell(letteredwords[lastLetter - 'a'], lastLetterCounter, level, usedSpells, turnCount));
             }
         }
-        toLowerCase(retaliate);
+        toLowerCase(retaliate); // ensures that we tackle all cases the word is written
 
-        if (chosenWords[turnCount] != NULL) {
-            // Clean up memory and exit
+        if (usedSpells[turnCount] != NULL) {
+            // clean up memory and exit
             for (int i = 0; i < turnCount; i++) {
-                free(chosenWords[i]);
+                free(usedSpells[i]);
             }
-            free(chosenWords);
-            free(words);
+            free(usedSpells);
+            free(spells);
             return 1;
         }
-        if (turnCount >= wordCount) {
-            printf("mafi mahal\n");
+        if (turnCount >= wordCount) { // ensures that the game will exit once the turns exceed the number of words we have
+            printf("You are spewing nonsense! You've no more cards to deal!\n");
             break;
         }
-
         printf("%s casted this spell: %s\n", Playing, retaliate);
-        chosenWords[turnCount] = strdup(retaliate);
+        usedSpells[turnCount] = strdup(retaliate);
         turnCount++;
 
-        if (!isFound(retaliate, words, wordCount) || !wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) ||
-            (turnCount >= 2 && !sameLetter(chosenWords[turnCount - 2], retaliate)) || isFound(retaliate, chosenWords, turnCount - 1)) {
+        if (!isFound(retaliate, spells, wordCount) || !wordsStartingWithChar(spells, retaliate[strlen(retaliate) - 1], wordCount) ||
+            (turnCount >= 2 && !sameLetter(usedSpells[turnCount - 2], retaliate)) || isFound(retaliate, usedSpells, turnCount - 1)) {
             break;
         }
 
-        // Switch turns only if the current player made a valid move
+        // switch turns only if the current player made a valid move
         if (strcmp(Playing, player1) == 0)
             strcpy(Playing, player2);
         else
@@ -185,74 +208,92 @@ int main() {
 
     /////////////////////// GAME OVER ///////////////////////
 
-    // Now we announce who the loser is and the condition that broke the loop
-    if (isFound(retaliate, chosenWords, turnCount - 1) == 1)
+    // now we announce who the loser is and why they lost
+    if (isFound(retaliate, usedSpells, turnCount - 1) == 1)
         printf("Such lack of creativity! This spell has been used! %s loses!\n", Playing);
-    else if (isFound(retaliate, words, wordCount) == 0)
+
+    else if (isFound(retaliate, spells, wordCount) == 0)
         printf("%s casts a spell unknown! Such a wonky move! %s loses!\n", Playing, Playing);
-    else if (wordsStartingWithChar(words, retaliate[strlen(retaliate) - 1], wordCount) == 0) {
+
+    // in this case we switch the name again since the loser is not the one who cast a spell
+    else if (wordsStartingWithChar(spells, retaliate[strlen(retaliate) - 1], wordCount) == 0) {
         if (strcmp(Playing, player1) == 0)
             strcpy(Playing, player2);
         else
             strcpy(Playing, player1);
         printf("It seems the odds were against you, %s. The English lexicon has betrayed thee.\n", Playing);
-    } else if (sameLetter(chosenWords[turnCount - 2], retaliate) == 0)
+    } 
+    
+    else if (sameLetter(usedSpells[turnCount - 2], retaliate) == 0)
         printf("%s offends the laws of the duel! The letters match not! Read for Merlin and Morgana's sake!\n", Playing);
 
-    // Free up memory
+    // free up memory
     for (int i = 0; i < turnCount; i++) {
-        free(chosenWords[i]);
+        free(usedSpells[i]);
     }
-    free(chosenWords);
+    free(usedSpells);
+
     for (int i = 0; i < wordCount; i++) {
-        free(words[i]);
+        free(spells[i]);
     }
-    free(words);
+    free(spells);
 
     return 0;
 }
 
-// Function to insert a word into a linked list
+/////////////////// FUNCTIONS IMPLEMENTATIONS ////////////////////
+
+// function to insert a word into a linked list
 void insert(char wordToInsert[], wordNode* array[]) {
-    int index = wordToInsert[0] - 'a';
+    int index = wordToInsert[0] - 'a'; // we subtract 'a' since we are using ASCII codes
     wordNode* newNode = malloc(sizeof(wordNode));
     strcpy(newNode->word, wordToInsert);
     newNode->next = array[index];
     array[index] = newNode;
 }
 
-// Function to suggest a spell based on frequency and difficulty level
-char* botSpell(wordNode *head, int *count, const char level[]) {
-    int maximumcount = 0;
-    int minimumcount = INT_MAX; // Set to maximum possible value
+// function that chooses a spell based on difficulty level
+char* botSpell(wordNode *head, int *count, const char level[], char *array[], int size) {
+    int maximumcount = 0; // set to minimum value, which is 0 since we initialized the count array to 0
+    int minimumcount = INT_MAX; // set to maximum possible value
     char *wordChosen = NULL;
     wordNode *currentLinkedList = head;
+
     while (currentLinkedList != NULL) {
         char *word = currentLinkedList->word;
-        char lastLetter = tolower(word[strlen(word) - 1]);
-        int frequency = count[lastLetter - 'a'];
-        if (strcmp(level, "easy") == 0) {
-            if (frequency >= maximumcount) {
-                maximumcount = frequency;
-                free(wordChosen);
-                wordChosen = strdup(word);
-            }
-        } else if (strcmp(level, "hard") == 0) {
-            if (frequency <= minimumcount) {
-                minimumcount = frequency;
-                free(wordChosen);
-                wordChosen = strdup(word);
-                
+        
+        if(!isFound(word, array, size)) {  // ensures that the word we choose is not already chosen, we will not reach a case where wordChosen remains null
+            char lastLetter = tolower(word[strlen(word) - 1]);
+            int frequency = count[lastLetter - 'a'];
+            // easy level: chooses word whose last letter has the most options for the user to choose from
+            if (strcmp(level, "easy") == 0) {
+                if (frequency >= maximumcount) {
+                    maximumcount = frequency;
+                    free(wordChosen);
+                    wordChosen = strdup(word);
+                }
+            } 
+            // hard level: chooses word whose last letter has the least options for the user to choose from
+            else if (strcmp(level, "hard") == 0) {
+                if (frequency <= minimumcount) {
+                    minimumcount = frequency;
+                    free(wordChosen);
+                    wordChosen = strdup(word);
+                }
             }
         }
         currentLinkedList = currentLinkedList->next;
     }
-    char firstChar= wordChosen[0];
-    count[(firstChar)-'a']--;
+    // decrement the counter in the letters array 
+    if (wordChosen != NULL) {
+        char firstChar= wordChosen[0];
+        count[(firstChar)-'a']--;
+    }
+    
     return wordChosen;
 }
 
-// Function to display the introduction dialogue
+// dialogue: introduction
 void displayEffect() {
     printf("Stop! Who dares to venture into this land!?\n\n");
     sleep(3);
@@ -272,7 +313,7 @@ void displayEffect() {
     sleep(1);
     printf(". ");
     sleep(1);
-    printf(". \n");
+    printf(". \n\n");
     sleep(2);
     printf("BOOM!!! *screaming*\n\n");
     sleep(1);
@@ -281,7 +322,7 @@ void displayEffect() {
     printf("QUICK! Valiant wizard, tell us what you are called and save us!\n\n");
 }
 
-// Function to display the starting dialogue
+// dialogue: announces beginning of duel, using the names in the correct spots to announce who begins as well
 void displayStart(char name1[], char name2[]) {
     printf("The Grandmaster Dumbledore steps forward and announces:\n\n");
     sleep(3);
@@ -304,7 +345,7 @@ void displayStart(char name1[], char name2[]) {
     sleep(2);
 }
 
-// Function to check if there exist words in the original list that start with the last letter of the previous word
+// function that checks if there are words in the spells list that start with the last letter of the previous word
 int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
         if (c == words[i][0])
@@ -313,14 +354,14 @@ int wordsStartingWithChar(char *words[], char c, int sizeOfArray) {
     return 0;
 }
 
-// Function to convert a string to lowercase
+// function that converts a string to lowercase
 void toLowerCase(char word[]) {
     for (int i = 0; word[i]; i++) {
         word[i] = tolower(word[i]);
     }
 }
 
-// Function to check if a word is found in an array
+// function to check if a string is found in an array
 int isFound(char word[], char *array[], int size) {
     char lowercaseWord[100];
     strcpy(lowercaseWord, word);
@@ -334,19 +375,20 @@ int isFound(char word[], char *array[], int size) {
     return 0;
 }
 
-// Function to check if the first letter of the new word matches the last letter of the old word
+// function to check if the first letter of the new spell matches the last letter of the previous spell
 int sameLetter(char* oldWord, char* newWord) {
     if (strlen(oldWord) == 0 || strlen(newWord) == 0) {
         return 1;
     }
     char lastChar = oldWord[strlen(oldWord) - 1];
     char firstChar = newWord[0];
-    if (firstChar == lastChar)
+    if (firstChar == lastChar) {
         return 1;
+    }
     return 0;
 }
 
-// Function to print an array of words
+// function to print an array of strings
 void printWords(char *words[], int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
         printf("%-20s", words[i]);
