@@ -363,18 +363,25 @@ the list is empty, the list has elements inside of them */
 
 /* partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
 */
+
 /* partitions void displayEffect() as follows: 
 */
+
 /* partitions void displayStart(char name1[], char name2[]) as follows: 
 */
+
 /* partitions int wordsStartingWithChar(char *words[], char c, int sizeOfArray) as follows: 
 */
+
 /*partitions void toLowerCase(char word[]) as follows: 
 */
+
 /*int isFound(char word[], char *array[], int size) as follows: 
 */
+
 /*int sameLetter(char* oldWord, char* newWord) as follows: 
-oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord), oldWord[strlen(oldWord)-1] != newWord[0]
+oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord), oldWord[strlen(oldWord)-1] != newWord[0]*/
+
 /*void printWords(char *words[], int sizeOfArray) as follows: 
 the list is empty, the list has elements inside of them 
 */
