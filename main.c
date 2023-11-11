@@ -357,36 +357,47 @@ void printWords(char *words[], int sizeOfArray) {
     printf("\n\n");
 }
 /*Unit Testing */
+/*
+1. partitions insert(char wordToInsert[], wordNode* array[]) as follows:
+   - Test Case 1: Insert a word into an empty linked list and verify that the linked list is updated correctly.
+   - Test Case 2: Insert a word into a non-empty linked lists and ensure that the list is updated properly.
 
-/*partitions insert(char wordToInsert[], wordNode* array[]) as follows:
-the list is empty, the list has elements inside of them */
+2. partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
+   - Test Case 1: Test with an empty linked list and ensure the function returns NULL regardless of the level of difficulty.
+   - Test Case 2: Test with a non-empty linked list and validate that the selected word meets the specified difficulty level.
+   (if easy level-->chooses the word whose last character has the highest frequency and if hard: returns the word with the lowest frequency)
+   - Test Case 3: Ensure that the frequency count is updated correctly after selecting a word.
 
-/* partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
-if the linked list is empty: the function returns "null" regardless of the level difficulty as there are no words in the linked list to choose from.
-if the level is easy: create a linked list contaning the words of the list given. The function chooses the word whose first character is the same as the last character of the previous word choosen 
-and it has the highest frequency.
- if the level is hard: same as easy but the function should return the world with lowest frequency.
+3. partitions void displayEffect() as follows:
+   - Test Case 1: Ensure that the function displays the introductory dialogue without errors.
+   - Test Case 2: Check if the function handles the sleep function appropriately.
+
+4. partitions void displayStart(char name1[], char name2[]) as follows: 
+   - Test Case 1: Verify that the function displays the starting dialogue correctly.
+   - Test Case 2: Ensure that the countdown is displayed correctly.
+
+5. partitions int wordsStartingWithChar(char *words[], char c, int sizeOfArray) as follows: 
+   - Test Case 1: Test with an array containing words that start with the specified character and ensure the function returns 1.
+   - Test Case 2: Test with an array where no words start with the specified character and ensure the function returns 0.
+
+6. partitions void toLowerCase(char word[]) as follows: 
+   - Test Case 1: Convert a string word with a mix of uppercase and lowercase letters and verify that all letters are converted to lowercase.
+
+7. int isFound(char word[], char *array[], int size) as follows: 
+   - Test Case 1: Check if the function correctly identifies the existence of a word in an array and ensure it returns 1.
+   - Test Case 2: Test with a word not in the array and ensure the function returns 0.
+
+8. int sameLetter(char* oldWord, char* newWord) as follows: 
+   - Test Case 1: Test with two words where the last letter of the first word matches the first letter of the second word and ensures it returns 1.
+   - Test Case 2: Test with two words where the last letter of the first word does not match the first letter of the second word and ensures it returns 0.
+
+9. void printWords(char *words[], int sizeOfArray) as follows: 
+   - Test Case 1: Verify that the function prints the array of words correctly.
+   - Test Case 2: Test with an array with fewer words than the specified column size.
+   - Test case 3: Test with an empty array and ensure it prints nothing.
+
+10. partitions int main() as follows: 
+   - Test Case 1: Test the entire program with a sample input file, checking for correct initialization, gameplay, and proper game-over conditions.
+   - Test Case 2: Test the program with an empty input file and ensure it handles the case appropriately.
+   - Test Case 3: Test the program with different player inputs and difficulty levels to ensure correct gameplay.
 */
-
-/* partitions void displayEffect() as follows:
-*/
-
-/* partitions void displayStart(char name1[], char name2[]) as follows: 
-*/
-
-/* partitions int wordsStartingWithChar(char *words[], char c, int sizeOfArray) as follows: 
-*/
-
-/*partitions void toLowerCase(char word[]) as follows: 
-*/
-
-/*int isFound(char word[], char *array[], int size) as follows: 
-*/
-
-/*int sameLetter(char* oldWord, char* newWord) as follows: 
-returns 1 if oldWord[strlen(oldWord)-1] = newWord[0] (the last letter in oldWord same as the first one in newWord) and zero if oldWord[strlen(oldWord)-1] != newWord[0]*/
-
-/*void printWords(char *words[], int sizeOfArray) as follows: 
-prints nothing if the list is empty, and prints the elements if the list has elements inside of it
-*/
-
