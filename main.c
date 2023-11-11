@@ -362,9 +362,13 @@ void printWords(char *words[], int sizeOfArray) {
 the list is empty, the list has elements inside of them */
 
 /* partitions char* botSpell(wordNode *head, int *count, const char level[]) as follows:
+if the linked list is empty: the function returns "null" regardless of the level difficulty as there are no words in the linked list to choose from.
+if the level is easy: create a linked list contaning the words of the list given. The function chooses the word whose first character is the same as the last character of the previous word choosen 
+and it has the highest frequency.
+ if the level is hard: same as easy but the function should return the world with lowest frequency.
 */
 
-/* partitions void displayEffect() as follows: 
+/* partitions void displayEffect() as follows:
 */
 
 /* partitions void displayStart(char name1[], char name2[]) as follows: 
