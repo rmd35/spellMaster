@@ -359,23 +359,39 @@ void printWords(char *words[], int sizeOfArray) {
 /*   void insert(char wordToInsert[], wordNode* array[]) 
      requires: a string containing the word to be inserted and array of pointers to Wordnode representing the head nodes of linked list for each character of the alphabet.
      effects:Inserts a new nodeto the  linked list corresponding to the first letter of the word.*/
+
 /*   char* botSpell(wordNode *head, int *count, const char level[])
      requires: a pointer to the head of linked list, array of integers to represent the count of words starting with each 
      letter of the alphabet and a string "level" representing the difficulty level(easy or hard)
      effects: chooses a word from the linked list based on frequency and level if the level is easy, the function  chooses the word with maximum frequency. If "hard" it  chooses the word with minimum frequency to limit the options of the player.*/
+
 /*   displayEffect();
      requires: nothing 
      effects:print an introductory dialogue with delays between lines.*/
+
 /*   void displayStart(char name1[], char name2[])
      requires:  two strings representing the name of first and second player
      effects:  print a starting dialogue using name of players*/
+
 /*   int wordsStartingWithChar(char *words[], char c, int sizeOfArray) 
      requires:array of strings, the first letter "c" of the word  and the size of the array
-      effects: check if there exist words in the original list that start with the character "c"
- */
+      effects: check if there exist words in the original list that start with the character "c"*/
+
 /*   void toLowerCase(char word[]) 
      requires: array of characters(string)
      effects: convert the given string to lowercase*/
+
+ /*int isFound(char word[], char *array[], int size)
+ requires: a string word, an array of strings, and its size
+ effects: returns 1 if the string word exists in the given array and 0 otherwise */ 
+
+/*int sameLetter(char* oldWord, char* newWord)
+ requires: the old chosen word and the newly chosen word
+ effects: returns 1 if the last letter of the old word is equal to the first letter of the new word and returns 0 otherwise */
+
+/*void printWords(char *words[], int sizeOfArray)
+ requires: an array of strings, and its size
+ effects: prints the words of the array in a certain format */
  
 
    
