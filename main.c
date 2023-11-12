@@ -330,6 +330,12 @@ void displayStart(char name1[], char name2[]) {
     sleep(3);
     printf("'Tonight, we shall witness an epic duel of spells!'\n\n");
     sleep(3);
+    printf("'Each wizard must cast a spell more powerful than that which precedes it!' \n\n");
+    sleep(3);
+    printf("'A spell must begin with the same letter as the last letter of the previous spell. . .' \n\n");
+    sleep(2);
+    printf("'It must be from the Spellbook Provided, and each spell must dazzle with originality!'\n\n");
+    sleep(2);
     printf("%s takes position, ready to cast the first spell...\n\n", name1);
     sleep(3);
     printf("%s prepares to counter...\n\n", name2);
