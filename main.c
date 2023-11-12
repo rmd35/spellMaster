@@ -120,8 +120,37 @@
     - Unit testing was written for each function to validate their correctness in isolation. Then, integration tests were performed to
       ensure that the entire  code functions properly. The test cases may be found in the branch "Testing"
 
-***Conclusion***:
+10. Performance: 
+    - Spell Master is a game that runs smoothly and successfully. The methods ensure flexibility in managing dynamic memory allocation and deallocation. For 
+      quick and easy access, linked lists are used to arrange spells alphabetically by their initial letters. Because of the sound logic of the game, which 
+      includes validation of the players' moves and determining the prerequisites for a successful move, playing is made fluid and responsive. The client and 
+      the bot take turns, adding a degree of unpredictability that improves the overall gameplay. The coin toss determines who starts.
 
-The SpellMaster Duel game code provides an engaging and unique gaming experience.
-The strategic use of words and the implementation of the magical duel concept make this code an interesting and creative project.*/
+11. Future Work: 
+    - By pursuing these paths, Spell Master can be improved:
+        i. Enhancing the bot's intelligence 
+              - Improve the bot's ability to make decisions by using more complex algorithms or machine learning. This can entail looking for trends in the 
+                client's movements to add strategy to the bot's decision-making.
 
+        ii. Scalability
+              - Make the code more efficient to manage bigger data sets; this may involve adding data structures or methods that speed up search and retrieval. 
+
+        iii. User Interface 
+              - To improve the overall game experience, implement a graphical user interface (GUI). The game may be made more engaging and fun by adding 
+                animations, spell icons, visual effects, and a visually appealing interface with a user-friendly layout.
+
+        iv. Multiplayer Support
+              - Make the game compatible with multiplayer features so that more than two people can play at once. One possible solution to this would be to 
+                implement a turn-based system in which each participant takes turns independently from each other.
+
+        v. Game data
+              - Include a feature that keeps track of and shows game data, such as the bot's performance, average game time, and the number of victories for 
+                each participant. Players can monitor their advancement and it introduces a competitive aspect.
+
+        vi. Difficulty Levels:
+              - Provide the bot with a variety of difficulty settings so that users can select from a range of challenging options, such as timed challenges, 
+                or extreme levels, or easy levels with hp.
+
+14. Conclusion
+    - A fun and distinctive gaming experience may be had with the SpellMaster Duel game code. More elements like user interface, dynamic conversation, 
+      scoring, and an interactive player spellbook might make this project more entertaining and imaginative with a magical execution.
