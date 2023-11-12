@@ -81,6 +81,19 @@ i. printWords:
    - Prints an array of strings, displaying available spells.
    
 
+7.Code Documentation:
+The codebase includes comments that detail functionality at both the micro and macro levels.
+Above each function, there is the purpose of the code, its expected input, and output. For example,
+the "botspell" function includes explanation of the decision making process of Bob based on difficulty level.
+
+8.Challenges faced:
+During devolopment,managing dynamic memory allocations and mastering C syntax posed challenges.The game required 
+efficient memory management to prevent leaks due to its extensive spell list. Additionally, C syntax demanded 
+precise attention , especially with pointers and memory addresses.
+9. Testing:
+Unit testings were written for each function to validate their correctness in isolation. Then, integration tests were performed to
+ensure that the entire  code functions properly.
+
 ***Conclusion***:
 
 The SpellMaster Duel game code provides an engaging and unique gaming experience.
