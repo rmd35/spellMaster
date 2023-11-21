@@ -6,13 +6,16 @@
 #include <ctype.h>
 #include <limits.h>
 
-typedef struct wordNode
+
+int cast_spell_Marauders(char **spells, int num_spells, char *previous_spell, char **used_spells, int num_used_spells)
+{  
+    typedef struct wordNode
 {
     char word[50];
     struct wordNode *next;
 } wordNode;
 
-int isFound(char word[], char *array[], int size)
+int isFound_Marauders(char word[], char *array[], int size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -24,7 +27,7 @@ int isFound(char word[], char *array[], int size)
     return 0;
 }
 
-void insert(char wordToInsert[], wordNode *array[])
+void insert_Marauders(char wordToInsert[], wordNode *array[])
 {
     int index = tolower(wordToInsert[0]) - 'a';
     wordNode *newNode = malloc(sizeof(wordNode));
@@ -32,9 +35,6 @@ void insert(char wordToInsert[], wordNode *array[])
     newNode->next = array[index];
     array[index] = newNode;
 }
-
-int cast_spell_Marauders(char **spells, int num_spells, char *previous_spell, char **used_spells, int num_used_spells)
-{
     srand(time(NULL));
     int FIRSTminimumcount = INT_MAX;
     int minimumcount = INT_MAX;
@@ -53,11 +53,11 @@ int cast_spell_Marauders(char **spells, int num_spells, char *previous_spell, ch
     }
     for (int i = 0; i < num_spells; i++)
     {
-        if (!isFound(spells[i], used_spells, num_used_spells))
+        if (!isFound_Marauders(spells[i], used_spells, num_used_spells))
         {
             int indexOfLetter = spells[i][0] - 'a';
             lastLetterCounter[indexOfLetter]++;
-            insert(spells[i], letteredwords);
+            insert_Marauders(spells[i], letteredwords);
         }
     }
     if (num_used_spells == 0)
@@ -79,7 +79,7 @@ int cast_spell_Marauders(char **spells, int num_spells, char *previous_spell, ch
     {
         char *word = currentLinkedList->word;
 
-        if (!isFound(word, used_spells, num_used_spells))
+        if (!isFound_Marauders(word, used_spells, num_used_spells))
         {
             char lastLetter = tolower(word[strlen(word) - 1]);
             int frequency = lastLetterCounter[lastLetter - 'a'];
@@ -101,3 +101,4 @@ int cast_spell_Marauders(char **spells, int num_spells, char *previous_spell, ch
     free(wordChosen); // Free allocated memory for strdup
     return returnIndex;
 }
+
