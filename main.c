@@ -83,3 +83,48 @@ void insert(char wordToInsert[], wordNode* array[]) {
     newNode->next = array[index];
     array[index] = newNode;
 }
+int main() {
+    char *spells1[] = {"abra", "alohomora", "accio", "expelliarmus", "wingardiumleviosa"};
+    char *used_spells1[] = {"abra", "accio"};
+    char previous_spell1[] = "accio";
+
+    int num_spells1 = sizeof(spells1) / sizeof(spells1[0]);
+    int num_used_spells1 = sizeof(used_spells1) / sizeof(used_spells1[0]);
+
+    int spellIndex1 = cast_spell_Marauders(spells1, num_spells1, previous_spell1, used_spells1, num_used_spells1);
+
+    printf("Chosen spell: %s\n", spells1[spellIndex1]);
+    printf("--------------------------------------------\n");
+
+    // Test Case 2
+    char *spells2[] = {"expelliarmus", "engorgio", "expecto_patronum", "alohomora", "accio", "wingardiumleviosa"};
+    char *used_spells2[] = {"expelliarmus", "accio", "wingardiumleviosa"};
+    char previous_spell2[] = "wingardiumleviosa";
+
+    int num_spells2 = sizeof(spells2) / sizeof(spells2[0]);
+    int num_used_spells2 = sizeof(used_spells2) / sizeof(used_spells2[0]);
+
+    int spellIndex2 = cast_spell_Marauders(spells2, num_spells2, previous_spell2, used_spells2, num_used_spells2);
+
+    printf("Chosen spell: %s\n", spells2[spellIndex2]);
+    printf("--------------------------------------------\n");
+
+    // Test Case 3 (Larger dataset)
+    char *large_spells[] = {
+        "accio", "alohomora", "avada_kedavra", "alarte_ascendare", "aguamenti", "brackium_emendo", "colloportus", 
+        "defodio", "expelliarmus", "expecto_patronum", "engorgio", "evanesco", "ferula", "geminio", "impedimenta",
+        "incendio", "lumos", "nox", "obliviate", "protego", "reducio", "reparo", "riddikulus", "serpensortia",
+        "stupefy", "tarantallegra", "wingardiumleviosa", "sectumsempra", "muffliato", "legilimens", "imperio"
+    };
+    char *large_used_spells[] = {"expelliarmus", "lumos", "reparo", "alohomora", "accio"};
+    char large_previous_spell[] = "accio";
+
+    int num_large_spells = sizeof(large_spells) / sizeof(large_spells[0]);
+    int num_large_used_spells = sizeof(large_used_spells) / sizeof(large_used_spells[0]);
+
+    int spellIndex_large = cast_spell_Marauders(large_spells, num_large_spells, large_previous_spell, large_used_spells, num_large_used_spells);
+
+    printf("Chosen spell: %s\n", large_spells[spellIndex_large]);
+
+    return 0;
+}
